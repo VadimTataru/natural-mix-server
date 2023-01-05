@@ -11,16 +11,16 @@ namespace NaturalMixApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "componentItems",
+                name: "ComponentItems",
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Naturalness = table.Column<float>(type: "real", nullable: false)
+                    Naturalness = table.Column<float>(type: "real", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_componentItems", x => x.Name);
+                    table.PrimaryKey("PK_ComponentItems", x => x.Name);
                 });
         }
 
@@ -28,7 +28,7 @@ namespace NaturalMixApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "componentItems");
+                name: "ComponentItems");
         }
     }
 }

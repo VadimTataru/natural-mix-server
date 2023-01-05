@@ -7,10 +7,10 @@ namespace NaturalMixApi.DB
     {
         public NaturalMixDbContext(DbContextOptions<NaturalMixDbContext> options): base()
         {
-            Database.EnsureCreated();
+
         }
 
-        public DbSet<ComponentItem> componentItems { get; set; }
+        public DbSet<ComponentItem> ComponentItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
