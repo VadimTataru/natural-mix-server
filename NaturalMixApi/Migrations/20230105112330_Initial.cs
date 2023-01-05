@@ -15,7 +15,7 @@ namespace NaturalMixApi.Migrations
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
                     Naturalness = table.Column<float>(type: "real", nullable: true)
                 },
                 constraints: table =>

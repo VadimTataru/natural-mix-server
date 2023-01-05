@@ -28,7 +28,6 @@ namespace NaturalMixApi.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<float?>("Naturalness")

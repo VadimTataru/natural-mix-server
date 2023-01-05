@@ -7,7 +7,6 @@ namespace NaturalMixApi.DB
     {
         public NaturalMixDbContext(DbContextOptions<NaturalMixDbContext> options): base()
         {
-
         }
 
         public DbSet<ComponentItem> ComponentItems { get; set; }

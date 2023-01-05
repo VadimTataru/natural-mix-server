@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NaturalMixApi.Migrations
 {
     [DbContext(typeof(NaturalMixDbContext))]
-    [Migration("20230105103728_Initial")]
+    [Migration("20230105112330_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -31,7 +31,6 @@ namespace NaturalMixApi.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<float?>("Naturalness")

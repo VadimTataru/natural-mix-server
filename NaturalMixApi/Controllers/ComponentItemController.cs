@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NaturalMixApi.DB;
 using NaturalMixApi.Models;
 
@@ -24,16 +25,15 @@ namespace NaturalMixApi.Controllers
             {
                 try
                 {
-                    var item = context.ComponentItems.FirstOrDefault(i => i.Name == component);
+                    var item = await context.ComponentItems.FirstOrDefaultAsync(i => i.Name == component);
                     if(item == null)
-                        item = new ComponentItem(component, "Информация не найдена", null);
+                        item = new ComponentItem(component, null, null);
                     result.Add(item);
                 } catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message.ToString());
                 }
-            }
-            
+            }            
             return result;
         }
     }

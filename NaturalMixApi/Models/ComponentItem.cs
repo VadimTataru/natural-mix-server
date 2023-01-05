@@ -7,11 +7,11 @@ namespace NaturalMixApi.Models
         [JsonProperty("Name")]
         public string Name { get; set; }
         [JsonProperty("Description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [JsonProperty("Naturalness")]
         public float? Naturalness { get; set; }
 
-        public ComponentItem(string name, string description, float? naturalness)
+        public ComponentItem(string name, string? description, float? naturalness)
         {
             Name = name;
             Description = description;
