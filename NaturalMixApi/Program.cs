@@ -17,8 +17,19 @@ builder.Services.AddDbContext<NaturalMixDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(policy =>
+{
+    policy.AddPolicy("_myAllowSpecificOrigins", builder =>
+     builder.WithOrigins("http://localhost:7246/")
+      .SetIsOriginAllowed((host) => true) // this for using localhost address
+      .AllowAnyMethod()
+      .AllowAnyHeader()
+      .AllowCredentials());
+});
+
 var app = builder.Build();
 
+app.UseCors("_myAllowSpecificOrigins");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
