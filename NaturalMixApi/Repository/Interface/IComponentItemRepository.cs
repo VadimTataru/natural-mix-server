@@ -4,6 +4,6 @@ namespace NaturalMixApi.Repository.Interface
 {
     public interface IComponentItemRepository
     {
-        Task<IEnumerable<ComponentItem>> GetComponentsInfoAsync(List<string> components);
+        Task<List<ComponentItem>> GetComponentsInfoAsync(List<string> components);
     }
 }

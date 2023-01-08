@@ -14,7 +14,7 @@ namespace NaturalMixApi.Repository.Implementation
             this.context = context;
         }
 
-        public async Task<IEnumerable<ComponentItem>> GetComponentsInfoAsync(List<string> components)
+        public async Task<List<ComponentItem>> GetComponentsInfoAsync(List<string> components)
         {
             List<ComponentItem> result = new();
             foreach (var component in components)

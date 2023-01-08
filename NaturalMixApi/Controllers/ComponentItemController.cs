@@ -20,7 +20,7 @@ namespace NaturalMixApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IEnumerable<ComponentItem>> GetComponentsInfo(List<string> components)
+        public async Task<List<ComponentItem>> GetComponentsInfo(List<string> components)
         {
             return await repository.GetComponentsInfoAsync(components);
         }
