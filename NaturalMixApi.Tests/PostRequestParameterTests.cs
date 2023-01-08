@@ -15,11 +15,15 @@ namespace NaturalMixApi.Tests
         }
 
         [Test]
-        public async Task Test_NaturalMixApi_GetComponentByName_False()
+        [TestCase(2)]
+        [TestCase(2.4)]
+        [TestCase('a')]
+        [TestCase(true)]
+        public async Task Test_NaturalMixApi_GetComponentByName_False(object postBody)
         {
             var client = new HttpClient();
             string url = "https://localhost:7246/api/ComponentItem";
-            var postBody = 2;
+            //var postBody = 2;
             try
             {
                 using var response = await client.PostAsJsonAsync(url, postBody);                
