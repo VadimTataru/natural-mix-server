@@ -17,12 +17,12 @@ namespace NaturalMixApi.Repository.Implementation
         public async Task<List<ComponentItem>> GetComponentsInfoAsync(List<string> components)
         {
             List<ComponentItem> result = new();
-            foreach (var component in components)
+            for(int i = 0; i < components.Count; i++)
             {
                 try
                 {
-                    component.Trim(new char[] { ',', ' ' });
-                    var item = await context.ComponentItems.FirstOrDefaultAsync(i => i.Name == component);
+                    components[i] = components[i].Trim(new char[] { ',', ' ' });
+                    var item = await context.ComponentItems.FirstOrDefaultAsync(j => j.Name == components[i]);
                     if (item != null)
                         result.Add(item);
 
