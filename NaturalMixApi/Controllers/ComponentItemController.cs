@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NaturalMixApi.DB;
 using NaturalMixApi.Models;
+using NaturalMixApi.Repository.Interface;
 
 namespace NaturalMixApi.Controllers
 {
@@ -11,30 +12,17 @@ namespace NaturalMixApi.Controllers
     public class ComponentItemController : ControllerBase
     {
         private readonly NaturalMixDbContext context;
-
-        public ComponentItemController(NaturalMixDbContext context)
+        private readonly IComponentItemRepository repository;
+        public ComponentItemController(NaturalMixDbContext context, IComponentItemRepository repository)
         {
             this.context = context;
+            this.repository = repository;
         }
 
         [HttpPost]
         public async Task<IEnumerable<ComponentItem>> GetComponentsInfo(List<string> components)
         {
-            List<ComponentItem> result = new();
-            foreach (var component in components)
-            {
-                try
-                {
-                    var item = await context.ComponentItems.FirstOrDefaultAsync(i => i.Name == component);
-                    if(item == null)
-                        item = new ComponentItem(component, null, null, null);
-                    result.Add(item);
-                } catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message.ToString());
-                }
-            }            
-            return result;
+            return await repository.GetComponentsInfoAsync(components);
         }
 
         /*[HttpGet]

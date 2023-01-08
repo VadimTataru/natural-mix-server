@@ -11,14 +11,14 @@ namespace NaturalMixApi.Models
         [JsonProperty("Origin")]
         public string? Origin { get; set; }
         [JsonProperty("Naturalness")]
-        public float? Naturalness { get; set; }
+        public float? Safety { get; set; }
 
-        public ComponentItem(string name, string? description, string? origin, float? naturalness)
+        public ComponentItem(string name, string? description, string? origin, float? safety)
         {
             Name = name;
             Description = description;
             Origin = origin;
-            Naturalness = naturalness;
+            Safety = safety;
         }
     }
 }

@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using NaturalMixApi.DB;
+using NaturalMixApi.Repository.Implementation;
+using NaturalMixApi.Repository.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-
+builder.Services.AddScoped<IComponentItemRepository, ComponentItemRepository>();
 builder.Services.AddDbContext<NaturalMixDbContext>(options => 
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
