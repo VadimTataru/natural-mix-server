@@ -21,10 +21,11 @@ namespace NaturalMixApi.Repository.Implementation
             {
                 try
                 {
+                    component.Trim(new char[] { ',', ' ' });
                     var item = await context.ComponentItems.FirstOrDefaultAsync(i => i.Name == component);
-                    if (item == null)
-                        item = new ComponentItem(component, null, null, null);
-                    result.Add(item);
+                    if (item != null)
+                        result.Add(item);
+
                 }
                 catch (Exception ex)
                 {

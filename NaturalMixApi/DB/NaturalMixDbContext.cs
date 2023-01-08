@@ -7,8 +7,8 @@ namespace NaturalMixApi.DB
     {
         public NaturalMixDbContext(DbContextOptions<NaturalMixDbContext> options): base()
         {
-            Database.EnsureDeletedAsync().Wait();
-            Database.EnsureCreatedAsync().Wait();
+            /*Database.EnsureDeletedAsync().Wait();
+            Database.EnsureCreatedAsync().Wait();*/
         }
 
         public DbSet<ComponentItem> ComponentItems { get; set; }
