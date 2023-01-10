@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using NaturalMixApi.DB;
 using NaturalMixApi.Models;
 using NaturalMixApi.Repository.Interface;
@@ -23,6 +21,12 @@ namespace NaturalMixApi.Controllers
         public async Task<List<ComponentItem>> GetComponentsInfo(List<string> components)
         {
             return await repository.GetComponentsInfoAsync(components);
+        }
+
+        [HttpPost("recognize")]
+        public async Task<RecognizedTextResponse> RecognizeImage(byte[] imageData)
+        {
+            return await repository.GetComponentsFromImageData(imageData);
         }
 
         /*[HttpGet]

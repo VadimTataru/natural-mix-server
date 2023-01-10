@@ -2,6 +2,8 @@
 using NaturalMixApi.DB;
 using NaturalMixApi.Models;
 using NaturalMixApi.Repository.Interface;
+using System.Diagnostics;
+using Tesseract;
 
 namespace NaturalMixApi.Repository.Implementation
 {
@@ -21,7 +23,7 @@ namespace NaturalMixApi.Repository.Implementation
             {
                 try
                 {
-                    components[i] = components[i].Trim(new char[] { ',', ' ' });
+                    components[i] = components[i].Trim(new char[] { ',', ' ', '!' }).ToLower();
                     var item = await context.ComponentItems.FirstOrDefaultAsync(j => j.Name == components[i]);
                     if (item != null)
                         result.Add(item);
@@ -32,6 +34,44 @@ namespace NaturalMixApi.Repository.Implementation
                     Console.WriteLine(ex.Message.ToString());
                 }
             }
+            return result;
+        }
+
+        public async Task<RecognizedTextResponse> GetComponentsFromImageData(byte[] imageData)
+        {
+            var text = await Task.Run(() => RecognizeText(imageData));
+            var data = await GetComponentsInfoAsync(text.Item2);
+
+            return new RecognizedTextResponse(text.Item1, data);
+        }
+
+        private static (string, List<string>) RecognizeText(byte[] imageData)
+        {
+            (string, List<string>) result = new();
+            try
+            {
+                using (var engine = new TesseractEngine(@"E:/VSStudioProjects/TestTesseract/TestTesseract/tessdata", "eng", EngineMode.Default))
+                {
+                    using (var image = Pix.LoadFromMemory(imageData))
+                    {
+                        using (var page = engine.Process(image))
+                        {
+                            var text = page.GetText();
+                            result.Item1 = text;
+                            if(text != null)
+                                result.Item2 = text.Split(new string[] { ",", ".", " - ","- "," -", " « ", " : ", ": ", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.ToString());
+                Console.WriteLine("Unexpected Error: " + e.Message);
+                Console.WriteLine("Details: ");
+                Console.WriteLine(e.ToString());
+            }
+
             return result;
         }
     }
