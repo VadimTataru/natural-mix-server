@@ -45,6 +45,11 @@ namespace NaturalMixApi.Repository.Implementation
             return new RecognizedTextResponse(text.Item1, data);
         }
 
+        /// <summary>
+        /// Распознавание текста на основе массива байт представляющих изображение.
+        /// </summary>
+        /// <param name="imageData">Массив байт, представляющий изображение</param>
+        /// <returns>Tuple состоящий из: Item1 - текст, который удалось распознать; Item2 - отдельные строки</returns>
         private static (string, List<string>) RecognizeText(byte[] imageData)
         {
             (string, List<string>) result = new();

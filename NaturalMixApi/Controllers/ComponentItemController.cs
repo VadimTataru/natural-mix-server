@@ -16,13 +16,22 @@ namespace NaturalMixApi.Controllers
             this.context = context;
             this.repository = repository;
         }
-
+        /// <summary>
+        /// POST Запрос на получение списка компонентов из БД по списку строк.
+        /// </summary>
+        /// <param name="components">Список строк</param>
+        /// <returns>Список компонентов ComponentItem</returns>
         [HttpPost]
         public async Task<List<ComponentItem>> GetComponentsInfo(List<string> components)
         {
             return await repository.GetComponentsInfoAsync(components);
         }
 
+        /// <summary>
+        /// POST Запрос на получение списка компонентов из БД по данным изображения, представленным в виде массива байт.
+        /// </summary>
+        /// <param name="imageData">Массив байт, представляющий изображение</param>
+        /// <returns>Модель RecognizedTextResponse</returns>
         [HttpPost("recognize")]
         public async Task<RecognizedTextResponse> RecognizeImage(byte[] imageData)
         {
