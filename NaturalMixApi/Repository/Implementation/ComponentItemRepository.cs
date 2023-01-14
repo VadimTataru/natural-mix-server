@@ -55,7 +55,8 @@ namespace NaturalMixApi.Repository.Implementation
             (string, List<string>) result = new();
             try
             {
-                using (var engine = new TesseractEngine(@"E:/VSStudioProjects/TestTesseract/TestTesseract/tessdata", "eng", EngineMode.Default))
+                var path = Path.GetFullPath("tessdata");
+                using (var engine = new TesseractEngine(path, "eng", EngineMode.Default))
                 {
                     using (var image = Pix.LoadFromMemory(imageData))
                     {
