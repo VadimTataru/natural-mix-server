@@ -9,12 +9,10 @@ namespace NaturalMixApi.Controllers
     [ApiController]
     public class ComponentItemController : ControllerBase
     {
-        private readonly NaturalMixDbContext context;
         private readonly IComponentItemRepository componentItemRepository;
         private readonly IRecognizeTextRepository recognizerTextRepository;
-        public ComponentItemController(NaturalMixDbContext context, IComponentItemRepository componentItemRepository, IRecognizeTextRepository recognizerTextRepository)
+        public ComponentItemController(IComponentItemRepository componentItemRepository, IRecognizeTextRepository recognizerTextRepository)
         {
-            this.context = context;
             this.componentItemRepository = componentItemRepository;
             this.recognizerTextRepository = recognizerTextRepository;
         }
