@@ -10,11 +10,13 @@ namespace NaturalMixApi.Controllers
     public class ComponentItemController : ControllerBase
     {
         private readonly NaturalMixDbContext context;
-        private readonly IComponentItemRepository repository;
-        public ComponentItemController(NaturalMixDbContext context, IComponentItemRepository repository)
+        private readonly IComponentItemRepository componentItemRepository;
+        private readonly IRecognizeTextRepository recognizerTextRepository;
+        public ComponentItemController(NaturalMixDbContext context, IComponentItemRepository componentItemRepository, IRecognizeTextRepository recognizerTextRepository)
         {
             this.context = context;
-            this.repository = repository;
+            this.componentItemRepository = componentItemRepository;
+            this.recognizerTextRepository = recognizerTextRepository;
         }
         /// <summary>
         /// POST Запрос на получение списка компонентов из БД по списку строк.
@@ -24,7 +26,7 @@ namespace NaturalMixApi.Controllers
         [HttpPost]
         public async Task<List<ComponentItem>> GetComponentsInfo(List<string> components)
         {
-            return await repository.GetComponentsInfoAsync(components);
+            return await componentItemRepository.GetComponentsInfoAsync(components);
         }
 
         /// <summary>
@@ -35,7 +37,9 @@ namespace NaturalMixApi.Controllers
         [HttpPost("recognize")]
         public async Task<RecognizedTextResponse> RecognizeImage(byte[] imageData)
         {
-            return await repository.GetComponentsFromImageData(imageData);
+            var text = await Task.Run(() => recognizerTextRepository.RecognizeText(imageData));
+            var data = await componentItemRepository.GetComponentsInfoAsync(text.Item2);
+            return new RecognizedTextResponse(text.Item1, data);
         }
 
         /*[HttpGet]

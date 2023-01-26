@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IComponentItemRepository, ComponentItemRepository>();
+builder.Services.AddScoped<IRecognizeTextRepository, RecognizeTextRepository>();
 builder.Services.AddDbContext<NaturalMixDbContext>(options => 
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
